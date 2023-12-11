@@ -1,6 +1,6 @@
 import { Sequelize } from "sequelize";
 
-const db = new Sequelize('react_native','root','',{
+const db = new Sequelize('shifty','root','',{
     host: "localhost",
     dialect: "mysql"
 });

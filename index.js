@@ -7,6 +7,7 @@ import session from "express-session";
 import SequelizeStore from "connect-session-sequelize";
 import AuthRoute from "./routes/AuthRoute.js";
 import User from "./routes/UserRoute.js";
+import Character from "./routes/CharacterRoute.js";
 
 
 
@@ -47,6 +48,7 @@ app.use(express.json());
 app.use(router);
 app.use(AuthRoute);
 app.use(User);
+app.use(Character);
 
 
 
