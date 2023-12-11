@@ -1,0 +1,142 @@
+GET http://localhost:5000/users
+
+###
+// get data pengajuan Jurusan MB
+GET http://localhost:5000/BorrowroomMB
+
+###
+// get data pengajuan Jurusan IF
+GET http://localhost:5000/BorrowroomIF
+
+###
+//Daftar user all
+POST  http://localhost:5000/users
+Content-Type: application/json
+
+{
+    "nama": "Fauzun Atabiq, S.T., M.Cs",
+    "password": "123456",
+    "confPassword": "123456",
+    "role": "4"
+}
+
+###
+/// login studnet
+POST  http://localhost:5000/login
+Content-Type: application/json
+
+{
+   
+    "nama": "Fauzun Atabiq, S.T., M.Cs",
+    "password": "123456"
+    
+}
+
+###
+/// log user dosen
+POST  http://localhost:5000/login
+Content-Type: application/json
+
+{
+   
+    "nim": "71285",
+    "password": "123456"
+   
+    
+}
+###
+/// login admin
+POST  http://localhost:5000/login
+Content-Type: application/json
+
+{
+   
+    "nim": "712952",
+    "password": "123456"
+    
+}
+###
+/// login pmdal
+POST  http://localhost:5000/login
+Content-Type: application/json
+
+{
+   
+    "nim": "7129522",
+    "password": "123456"
+    
+}
+###
+/// log user TU
+POST  http://localhost:5000/login
+Content-Type: application/json
+
+{
+   
+    "nim": "7129592",
+    "password": "123456"
+   
+    
+}
+
+###
+GET  http://localhost:5000/token
+
+###
+DELETE http://localhost:5000/logout
+
+###
+PATCH http://localhost:5000/users/9b0e7344-2d0d-4634-bfbf-b656d8068f5c
+Content-Type: application/json
+
+{
+    "name": "Fahrifx",
+    "nim": "3312001091",
+    "password": "123456",
+    "confPassword": "123456",
+    "role": "admin"
+}
+###
+DELETE  http://localhost:5000/users/88bf97f2-6848-4940-bfb6-42c3336a5890
+
+###
+DELETE  http://localhost:5000/logout
+
+###
+GET   http://localhost:5000/me
+
+###
+// get data pengajuan
+GET http://localhost:5000/borrow_room_dosen
+
+###
+POST  http://localhost:5000/Borrow_room
+Content-Type: application/json
+
+{
+   
+    "nama_kegiatan": "Pemilihan Ketua 42",
+    "ruangan_id": "9",
+    "dosen_student_id": "4",
+    "dosen_id": "19"
+    
+
+}
+###
+/// get pengajuan single
+GET http://localhost:5000/BorrowroomByIdIF/2d5ea5e6-d1b3-49fd-aef5-9e25601d4ea8
+
+###
+/// edit data pengajuan
+PATCH http://localhost:5000/pengajuan/6db5ace6-8750-495a-89aa-2c03385ad2d9
+Content-Type: application/json
+
+{
+    "nama": "RanI",
+    "ruangan": "999",
+    "populasi": "ninda sahrani"
+}
+
+###
+/// hapus data pengajuan by id
+DELETE  http://localhost:5000/pengajuan/677971e5-2a14-4516-8579-beeae812be83
