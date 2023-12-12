@@ -8,6 +8,7 @@ import SequelizeStore from "connect-session-sequelize";
 import AuthRoute from "./routes/AuthRoute.js";
 import User from "./routes/UserRoute.js";
 import Character from "./routes/CharacterRoute.js";
+import Item from "./routes/ItemRoute.js";
 
 
 
@@ -49,6 +50,7 @@ app.use(router);
 app.use(AuthRoute);
 app.use(User);
 app.use(Character);
+app.use(Item);
 
 
 

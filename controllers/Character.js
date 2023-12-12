@@ -1,6 +1,4 @@
 import Char_models from "../models/Charactermodel.js";
-import Users from "../models/Usermodel.js";
-import { Op } from "sequelize";
 
 
 export const getAllChar = async (req, res) => {
