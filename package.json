@@ -21,6 +21,8 @@
     "jsonwebtoken": "^8.5.1",
     "mysql2": "^2.3.3",
     "nodemon": "^2.0.20",
-    "sequelize": "^6.27.0"
+    "sequelize": "^6.27.0",
+    "ssh2": "^1.15.0",
+    "tunnel-ssh": "^5.1.1"
   }
 }

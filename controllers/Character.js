@@ -1,11 +1,18 @@
 import Char_models from "../models/Charactermodel.js";
+import Class from "../models/Classmodel.js";
+import Code from "../models/Codemodel.js";
+import Company from "../models/Companymodel.js";
+import Squad from "../models/Squadmodel.js";
+import Cube from "../models/Cubemodel.js";
+import Weapon from "../models/Weaponmodel.js";
+
 
 
 export const getAllChar = async (req, res) => {
     try {
         let response;
          response = await Char_models.findAll({
-                attributes: ['name', 'class','code','weapon', 'company','squad'],
+                attributes: ['name', 'class','code','weapon', 'company','squad','burst','cube','normal_attack','skill_1','skill_2','burst_skill','createdAt','charimg'],
             });
      
         res.status(200).json(response);
@@ -16,34 +23,43 @@ export const getAllChar = async (req, res) => {
 
 export const getCharId = async (req, res) => {
     try {
-        const char = await Char_models.findOne({
+        const response = await Char_models.findOne({
             where: {
                 id: req.params.id
+            },
+            attributes: ['id','name','class','code','weapon','company','squad','burst','cube','normal_attack','skill_1','skill_2','burst_skill','charImg'
+            ],
+            include: [{
+                model: Class,
+                attributes: ['name'],
+                as: 'dataClass'
+            }, {
+                model: Code,
+                attributes: ['name'],
+                as: 'dataCode'
+            },{
+                model: Company,
+                attributes: ['name'],
+                as: 'dataCompany'
+            },{
+                model: Squad,
+                attributes: ['name'],
+                as: 'dataSquad'
+            },{
+                model: Cube,
+                attributes: ['name'],
+                as: 'dataCube'
+            },{
+                model: Weapon,
+                attributes: ['name'],
+                as: 'dataWeapon'
             }
+        ],
         });
 
-        if (!char) {
+        if (!response) {
             return res.status(404).json({ msg: "Data Char tidak ditemukan" });
         }
-
-        const response = await Char_models.findOne({
-            attributes: ['name', 'class','code','weapon', 'company','squad'],
-            where: {
-                id: char.id
-            },
-         /*    include: [{
-                model: Users,
-                attributes: ['nama', 'role', 'id', 'jur_id']
-            },
-            {
-                model: sesi_if,
-                attributes: ['sesi']
-            },
-            {
-                model: Room,
-                attributes: ['ruangan']
-            }] */
-        });
 
         res.status(200).json(response);
     } catch (error) {
@@ -52,7 +68,7 @@ export const getCharId = async (req, res) => {
 };
 
 export const createChar = async (req, res) => {
-    const { name, characterClass ,code, weapon, company, squad } = req.body;
+    const { name, characterClass ,code, weapon, company, squad,burst,cube,normal_attack,skill_1,skill_2,burst_skill } = req.body;
     try {
         await Char_models.create({
             name: name,
@@ -60,7 +76,13 @@ export const createChar = async (req, res) => {
             code: code,
             weapon: weapon,
             company: company,
-            squad: squad
+            squad: squad,
+            burst:burst,
+            cube:cube,
+            normal_attack:normal_attack,
+            skill_1:skill_1,
+            skill_2:skill_2,
+            burst_skill:burst_skill
 
         });
         res.status(201).json({ msg: "Char Ditambahkan" });
@@ -78,8 +100,8 @@ export const updateChar = async (req, res) => {
             }
         });
         if (!char) return res.status(404).json({ msg: "Data tidak ditemukan" });
-        const { name, characterClass ,code, weapon, company, squad } = req.body;
-            await Char_models.update({ name, characterClass ,code, weapon, company, squad }, {
+        const { name, characterClass ,code, weapon, company, squad,burst,cube,normal_attack,skill_1,skill_2,burst_skill } = req.body;
+            await Char_models.update({ name, characterClass ,code, weapon, company, squad,burst,cube,normal_attack,skill_1,skill_2,burst_skill }, {
                 where: {
                     id: char.id
                 },
@@ -112,7 +134,7 @@ export const deleteChar = async (req, res) => {
                 }
             });
         }
-        res.status(200).json({ msg: "Pengajuan berhasil dihapus" });
+        res.status(200).json({ msg: "Char berhasil dihapus" });
     } catch (error) {
         res.status(500).json({ msg: error.message });
     }

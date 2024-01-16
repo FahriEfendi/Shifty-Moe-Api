@@ -12,7 +12,6 @@ import Item from "./routes/ItemRoute.js";
 
 
 
-
 dotenv.config();
 const app = express();
 
@@ -36,6 +35,8 @@ app.use(session({
     }
 }));
 
+app.use(express.static("public"));
+
 try {
     await db.authenticate();
     console.log('Database terhubung..');
@@ -44,13 +45,17 @@ try {
     console.error(error);
     
 }
-app.use(cors({ credentials:true, origin:'http://192.168.111.238:3000'}));
+app.use(cors({
+    credentials: true,
+    origin: 'http://localhost:3000'
+}));
 app.use(express.json());
 app.use(router);
 app.use(AuthRoute);
 app.use(User);
 app.use(Character);
 app.use(Item);
+
 
 
 
