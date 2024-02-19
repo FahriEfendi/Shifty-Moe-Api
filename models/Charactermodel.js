@@ -6,6 +6,7 @@ import Company from "./Companymodel.js"
 import Squad from "./Squadmodel.js";
 import Cube from "./Cubemodel.js";
 import Weapon from "./Weaponmodel.js";
+import Rarity from "./Raritymodel.js";
 
 const { DataTypes } = Sequelize;
 
@@ -18,7 +19,7 @@ const Char = db.define('character', {
             len: [3, 100]
         }
     },
-    class: {
+    charclass: {
         type: DataTypes.INTEGER,
     },
     code: {
@@ -36,7 +37,10 @@ const Char = db.define('character', {
     burst: {
         type: DataTypes.INTEGER,
     },
-    cubes: {
+    cube: {
+        type: DataTypes.INTEGER,
+    },
+    rarity: {
         type: DataTypes.INTEGER,
     },
     normal_attack: {
@@ -51,12 +55,18 @@ const Char = db.define('character', {
     burst_skill: {
         type: DataTypes.STRING,
     },
+    charimg: {
+        type: DataTypes.STRING,
+    },
+    slug: {
+        type: DataTypes.STRING,
+    },
 }, {
     freezeTableName: true
 });
 
-Class.hasMany(Char, { foreignKey: 'class', as: 'dataClass' });
-Char.belongsTo(Class, { foreignKey: 'class', as: 'dataClass' });
+Class.hasMany(Char, { foreignKey: 'charclass', as: 'dataClass' });
+Char.belongsTo(Class, { foreignKey: 'charclass', as: 'dataClass' });
 
 Code.hasMany(Char, { foreignKey: 'code', as: 'dataCode' });
 Char.belongsTo(Code, { foreignKey: 'code', as: 'dataCode' });
@@ -72,5 +82,8 @@ Char.belongsTo(Cube, { foreignKey: 'cube', as: 'dataCube' });
 
 Weapon.hasMany(Char, { foreignKey: 'weapon', as: 'dataWeapon' });
 Char.belongsTo(Weapon, { foreignKey: 'weapon', as: 'dataWeapon' });
+
+Rarity.hasMany(Char, { foreignKey: 'rarity', as: 'dataRarity' });
+Char.belongsTo(Rarity, { foreignKey: 'rarity', as: 'dataRarity' });
 
 export default Char;

@@ -5,7 +5,7 @@ export const getAllitem = async (req, res) => {
     try {
         let response;
          response = await Item_models.findAll({
-                attributes: ['name', 'description'],
+                attributes: ['id','name','description','itemimg','slug'],
             });
      
         res.status(200).json(response);
@@ -27,7 +27,7 @@ export const getItemId = async (req, res) => {
         }
 
         const response = await Item_models.findOne({
-            attributes: ['name', 'description'],
+            attributes: ['name', 'description','itemimg'],
             where: {
                 id: item.id
             },
@@ -40,11 +40,14 @@ export const getItemId = async (req, res) => {
 };
 
 export const createItem = async (req, res) => {
-    const { name, description } = req.body;
+    const { name, description,itemimg } = req.body;
+    const slug = name.replace(/\s+/g, '-').toLowerCase(); // Mengganti spasi dengan tanda hubung dan mengubah menjadi huruf kecil
     try {
         await Item_models.create({
             name: name,
-            description: description
+            description: description,
+            itemimg: itemimg,
+            slug: slug
 
         });
         res.status(201).json({ msg: "Item Ditambahkan" });
@@ -62,8 +65,8 @@ export const updateItem = async (req, res) => {
             }
         });
         if (!item) return res.status(404).json({ msg: "Data tidak ditemukan" });
-        const { name, description  } = req.body;
-            await Item_models.update({ name, description }, {
+        const { name, description,itemimg  } = req.body;
+            await Item_models.update({ name, description ,itemimg}, {
                 where: {
                     id: item.id
                 },
@@ -82,7 +85,7 @@ export const deleteItem = async (req, res) => {
             }
         });
         if (!item) return res.status(404).json({ msg: "Data tidak ditemukan" });
-        if (req.role === 2) {
+        if (req.role === 1) {
             await Item_models.destroy({
                 where: {
                     id: item.id
@@ -97,6 +100,18 @@ export const deleteItem = async (req, res) => {
             });
         }
         res.status(200).json({ msg: "Item berhasil dihapus" });
+    } catch (error) {
+        res.status(500).json({ msg: error.message });
+    }
+}
+
+export const getTotalItem = async (req, res) => {
+    try {
+        let totalCharacters;
+
+        totalCharacters = await Item_models.count();
+
+        res.status(200).json({ totalCharacters });
     } catch (error) {
         res.status(500).json({ msg: error.message });
     }

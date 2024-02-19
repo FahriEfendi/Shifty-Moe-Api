@@ -1,11 +1,12 @@
 import express from "express";
-import {Login, logOut, Me} from "../controllers/Auth.js";
-import { verifyUser, adminOnly } from "../middleware/AuthUser.js";
+import {Login, Logout} from "../controllers/Auth.js";
+import { verifyUser, adminOnly,Token } from "../middleware/AuthUser.js";
 
 const router = express.Router();
 
-router.get('/me', Me);
-router.post('/login', Login,verifyUser);
-router.delete('/logout', logOut);
+router.post('/login', Login);
+router.delete('/logout', Logout);
+router.get('/token', Token);
+
 
 export default router;

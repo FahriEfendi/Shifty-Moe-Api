@@ -27,6 +27,7 @@ const Users = db.define('users', {
       notEmpty: true
     }
   },
+
   role: {
     type: DataTypes.INTEGER,
         allowNull: false,
@@ -35,6 +36,9 @@ const Users = db.define('users', {
             notEmpty: true
         }
   },
+  token:{
+    type: DataTypes.TEXT
+}
   
 }, {
   freezeTableName: true

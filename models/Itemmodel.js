@@ -15,6 +15,12 @@ const Item = db.define('item', {
     description: {
         type: DataTypes.STRING,
     },
+    itemimg: {
+        type: DataTypes.STRING,
+    },
+    slug: {
+        type: DataTypes.STRING,
+    },
 }, {
     freezeTableName: true
 });

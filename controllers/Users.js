@@ -4,7 +4,7 @@ import User from "../models/Usermodel.js";
 export const getUsers = async(req, res) =>{
     try {
         const response = await User.findAll({
-            attributes:['id','nama','role','nim','uuid']
+            attributes:['id','nama','role','uuid']
         });
         res.status(200).json(response);
     } catch (error) {
@@ -15,7 +15,7 @@ export const getUsers = async(req, res) =>{
 export const getUserById = async(req, res) =>{
     try {
         const response = await User.findOne({
-            attributes:['uuid','nama','role','nim','jur_id'],
+            attributes:['uuid','nama','role'],
             where: {
                 uuid: req.params.id
             }
@@ -33,6 +33,13 @@ export const Register = async (req, res) => {
     }
 
     try {
+         // Periksa apakah ada pengguna dengan nama yang sama
+         const existingName = await User.findOne({ where: { nama } });
+        
+ 
+         if (existingName) {
+             return res.status(400).json({ msg: "Nama telah terdaftar" });
+         } 
       
         const salt = await bcrypt.genSalt();
         const hashPassword = await bcrypt.hash(password, salt);
